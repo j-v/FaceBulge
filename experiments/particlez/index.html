@@ -141,7 +141,7 @@
 		
 					// and move it forward dependent on the mouseY position. 
 					particle.position.z +=  mouseY * 0.1;
-					particle.position.x =  mouseX - window.innerWidth/2 + randomRange(-20, 20);
+					particle.position.x = randomRange(-window.innerWidth/2, window.innerWidth );// mouseX - window.innerWidth/2 + randomRange(-20, 20);
 					particle.position.y = window.innerHeight / 2 - mouseY; //iteration; //+= randomRange(-20, 20)
 		
 					// if the particle is too close move it to the back
