@@ -133,19 +133,23 @@
 			
 			function updateParticles() { 
 				iteration++;
-				if(iteration > 100) iteration = 0;
+				if(iteration > 200) iteration = 0;
 				// iterate through every particle
 				for(var i=0; i<particles.length; i++) {
 		
 					particle = particles[i]; 
-		
+					factor = iteration * (iteration/42)
+					factorX = ((i%2 == 0) ? 1 : -1) * iteration
 					// and move it forward dependent on the mouseY position. 
-					particle.position.z +=  mouseY * 0.1;
-					particle.position.x = randomRange(-window.innerWidth/2, window.innerWidth );// mouseX - window.innerWidth/2 + randomRange(-20, 20);
-					particle.position.y = window.innerHeight / 2 - mouseY; //iteration; //+= randomRange(-20, 20)
+					particle.position.z += 0.1 * factor //* mouseY 
+					particle.position.y = (window.innerHeight / 2 - mouseY) //* factorY
+					particle.position.x += 0.1 * factorX
 		
 					// if the particle is too close move it to the back
-					if(particle.position.z>1000) particle.position.z-=2000; 
+					if(particle.position.z>1000) {
+						particle.position.z-=2000; 
+						particle.position.x = randomRange(-window.innerWidth/2, window.innerWidth/2 );
+					}
 		
 				}
 	
