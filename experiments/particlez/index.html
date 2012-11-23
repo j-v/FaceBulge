@@ -131,6 +131,7 @@
 			
 			// moves all the particles dependent on mouse position
 			
+			
 			function updateParticles() { 
 				iteration++;
 				if(iteration > 200) iteration = 0;
@@ -141,25 +142,31 @@
 					factor = iteration * (iteration/42)
 					factorX = ((i%2 == 0) ? 1 : -1) * iteration
 					// and move it forward dependent on the mouseY position. 
-					particle.position.z += 0.1 * factor //* mouseY 
-					particle.position.y = (window.innerHeight / 2 - mouseY) //* factorY
-					particle.position.x += 0.1 * factorX
+					particle.position.z += 0.1 * 10 //0.1 * mouseY 
+					particle.position.y = mouseYCords[i % mouseYCords.length] + mouseY/2 - window.innerHeight / 2 
+					particle.position.x = mouseXCords[i % mouseXCords.length] + mouseX/2 - window.innerWidth / 2
 		
 					// if the particle is too close move it to the back
 					if(particle.position.z>1000) {
 						particle.position.z-=2000; 
-						particle.position.x = randomRange(-window.innerWidth/2, window.innerWidth/2 );
+						//particle.position.x = randomRange(-window.innerWidth/2, window.innerWidth/2 );
 					}
 		
 				}
 	
 			}
-		
+			var mouseXCords = []
+			var mouseYCords = []
+			
 		// called when the mouse moves
 			function onMouseMove( event ) {
 				// store the mouseX and mouseY position 
 				mouseX = event.clientX;
 				mouseY = event.clientY;
+				mouseXCords.push(mouseX)
+				mouseYCords.push(mouseY)
+				if(mouseXCords.length > 100) mouseXCords.shift()
+				if(mouseYCords.length > 100) mouseYCords.shift()
 			}
 			
 			function randomRange(min, max) { 
