@@ -1,5 +1,5 @@
 # How big's your bulge?
-Takte the **BULGE CHALLENGE**
+Take the **BULGE CHALLENGE**
 
 ## How to contribute?
 * Fork the project
