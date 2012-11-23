@@ -13,3 +13,6 @@ Take the **BULGE CHALLENGE**
 * Lieutenant Commander  "TimandEric"
 * Commander "Kommandant"
 * Captain "Vortex Bulge"
+
+### Remember to SHIP; SHIP; SHIP
+![SHIP IT LIKE A PRO](http://i.imgur.com/SrAsR.jpg)
