@@ -20,3 +20,6 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
 
 ### Remember to SHIP; SHIP; SHIP
 ![SHIP IT LIKE A PRO](http://i.imgur.com/SrAsR.jpg)
+
+### This is NOT a facebulge...
+![H-A-N-D Bulge!](http://www.unlikethis.com/handbulge.png)
