@@ -7,3 +7,9 @@ Take the **BULGE CHALLENGE**
 * Make sure it passes the tests
 * Fork again.
 * Repeat.
+
+##### Beat our bulge!
+* Ensign and Lieutenant "Burgermeister/Bulgemeister" - 
+* Lieutenant Commander  "TimandEric"
+* Commander "Kommandant"
+* Captain "Vortex Bulge"
