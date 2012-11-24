@@ -18,7 +18,7 @@ function getVertex(x, y, planeGeom) {
 	return planeGeom.vertices[index];
 }
 
-function makeFuckedGridGeometry()
+function makeFuckedGridGeometry() // AKA Unikat geometry
 {
 	// make a point stick out of the mesh
 	var size = 200;
@@ -69,10 +69,14 @@ function makeBulgeGridGeometry(width, height, divWidth,
 			var v = getVertex(i, j, geom);
 			v.z += z;
 
-						
-			
 		}
 	}
+
+
+	// add unikat
+	var v = getVertex(Math.round(1.23/2 * (divWidth+1)), Math.round(.4*divWidth), geom);
+	v.z += 0.4 * width;
+	v.y += 0.15 * width;
 
 	return geom;
 
@@ -143,7 +147,7 @@ function loadScene() {
 
 		//geometry = new THREE.PlaneGeometry(100, 100, 10, 10),
 		//geometry = makeFuckedGridGeometry(),
-		geometry = makeBulgeGridGeometry(200, 200, 20, 20, 100, 100, 50),
+		geometry = makeBulgeGridGeometry(200, 200, 50, 50, 100, 100, 50),
         mesh = new THREE.Mesh(geometry, material);
         mesh.geometry.dynamic = true;
         //mesh = makeGridMesh(10, 10, 10, material);
