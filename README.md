@@ -18,6 +18,17 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
 * Commander "Kommandant"
 * Captain "Vortex Bulge"
 
+### how to run?
+
+    git clone git://github.com/j-v/FaceBulge.git
+    cd FaceBulge
+    mkdir public/uploads/
+    # you need to have opencv and build tools installed to compile the helper
+    cd experiments/facedetect
+    ./build.sh
+    cd ../../
+    ./run.sh
+
 ### Remember to SHIP; SHIP; SHIP
 ![SHIP IT LIKE A PRO](http://i.imgur.com/SrAsR.jpg)
 
