@@ -18,7 +18,7 @@ exports.action = function(req, res) {
 	  command = 'objectDetect.exe';
   else
 	  command = './objectDetect.exe';
-  child = exec(command + ' ' + req.files.file.path,
+  child = exec(command + ' "' + req.files.file.path + '"',
     function (error, stdout, stderr) {
       var photo_path = req.files.file.path.split(path.sep)
       res.render('uploaded', { title: 'FaceBulge', face_info: stdout, photo_path: '/uploads/' + photo_path[photo_path.length - 1] });
