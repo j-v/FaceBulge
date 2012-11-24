@@ -9,11 +9,18 @@ function start() {
 function makeFuckedGridGeometry()
 {
 	// make a point stick out of the mesh
-	var size = 300;
-	var geom= new THREE.PlaneGeometry(size, size, 10, 10);
-	var v = geom.vertices[50];
+	var size = 200;
+	var divisions = 50;
+	var geom= new THREE.PlaneGeometry(size, size, divisions, divisions);
+	//for (var i=0;i<divisions;i++) {
+	var head_pos = (divisions+1)*(Math.round(.4*divisions)) + Math.round(1.23/2 * (divisions+1));
+	console.log(head_pos);
+	var v = geom.vertices[head_pos];
 	v.z += 0.4 * size;
 	v.y += 0.15 * size;
+	//}
+	console.log(geom.vertices.length);
+	
 	return geom;	
 }
 
@@ -54,7 +61,7 @@ function makeGridMesh(interval, width, height, material)
 function loadScene() {
     var world = document.getElementById('world'),
         WIDTH = 1200,
-        HEIGHT = 800,
+        HEIGHT = 1000,
         VIEW_ANGLE = 45,
         ASPECT = WIDTH / HEIGHT,
         NEAR = 0.1,
@@ -68,7 +75,8 @@ function loadScene() {
             start();
 		}),
 
-        material = new THREE.MeshBasicMaterial({map: texture}),
+        //material = new THREE.MeshBasicMaterial({map: texture}),
+        material = new THREE.MeshPhongMaterial({map: texture}),
         // material = new THREE.MeshPhongMaterial({color: 0xCC0000});
         //geometry = new THREE.PlaneGeometry(100, 100),
         //radius = 75,
@@ -85,6 +93,9 @@ function loadScene() {
         //mesh = makeGridMesh(10, 10, 10, material);
         pointLight = new THREE.PointLight(0xFFFFFF);
 
+	mesh.position.x = 10;
+	mesh.position.y = 25;
+
     camera.position.z = 300;    
     renderer.setSize(WIDTH, HEIGHT);
     scene.add(mesh);
@@ -97,9 +108,9 @@ function loadScene() {
 
 function animate(t) {
 	// spin the camera in a circle
-	camera.position.x = Math.abs(Math.sin(t/1000)*300);
+	camera.position.x = Math.abs(Math.sin(t/1000 + 1)*300 ) ;
 	camera.position.y = 150;
-	camera.position.z = Math.abs(Math.cos(t/1000)*300);
+	camera.position.z = Math.abs(Math.cos(t/1000 + 2)*300  );
 	// you need to update lookAt every frame
 	camera.lookAt(scene.position);
 	// renderer automatically clears unless autoClear = false
