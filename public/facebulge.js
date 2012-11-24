@@ -1,4 +1,7 @@
+var x_thin = 1.25;
+
 function start() {
+	
 	renderer.render(scene, camera);
 	animate(new Date().getTime()); 
 }
@@ -12,7 +15,7 @@ function getVertex(x, y, planeGeom) {
 
 function euclid_distance(x1, y1, x2, y2)
 {
-	var x = x2 - x1;
+	var x = (x2 - x1) * x_thin;
 	var y = y2 - y1;
 	return Math.sqrt(x * x + y * y);
 }
@@ -40,13 +43,15 @@ function makeBulgeGridGeometry(width, height, divWidth,
 
 			var x = i * divSizeX;
 			var y = j * divSizeY;
-			var x_diff = x - bulgeCX;
+			var x_diff = (x - bulgeCX) * x_thin;
 			var y_diff = y - bulgeCY;
 			var z = Math.sqrt(bulgeRadius*bulgeRadius-x_diff*x_diff-y_diff*y_diff);
 
 			var v = getVertex(i, j, geom);
 			if (v != undefined)
-				v.z += z * 0.5 + 20;
+			{
+				v.z += z * 1.0 + 15 ;
+			}
 
 		}
 	}
@@ -113,10 +118,10 @@ function animate(t) {
 	var multiplier = Math.max(img_height, img_width) * 2;    
 	// spin the camera in a circle
 	//camera.position.x = Math.abs(Math.sin(t/10000 + 1)*multiplier ) ;
-	camera.position.x = Math.abs((Math.sin(((t % 1000)-500)/4000))*multiplier ) ;
+	camera.position.x = Math.abs((Math.sin(((t % 1000)-500)/2000))*multiplier ) ;
 	camera.position.y = 150;
 	//camera.position.z = Math.abs(Math.cos(t/10000 + 2)*multiplier  );
-	camera.position.z = Math.abs((Math.cos(((t%1000)-500)/4000 ))*multiplier);
+	camera.position.z = Math.abs((Math.cos(((t%1000)-500)/2000 ))*multiplier);
 	// you need to update lookAt every frame
     //mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
