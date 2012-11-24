@@ -1,7 +1,9 @@
 # How big's your bulge?
+### You can see the live project at [http://fb.joj.me](http://fb.joj.me)
 Take the **BULGE CHALLENGE**
+Example:
+[![Ballmer bulge](https://dl.dropbox.com/u/345086/anim.gif)](http://fb.joj.me)
 
-You can see the live project at [http://facebulge.herokuapp.com](http://facebulge.herokuapp.com)
 
 ## How to contribute?
 * Fork the project
@@ -12,7 +14,7 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
 
 ###### Pull requests are welcome
 
-##### Beat our bulge!
+#### Beat our bulge!
 * Ensign and Lieutenant "Burgermeister/Bulgemeister" - 
 * Lieutenant Commander  "TimandEric"
 * Commander "Kommandant"
@@ -26,7 +28,7 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
     cd experiments/facedetect
     ./build.sh
     cd ../../
-		npm install
+    npm install
     ./run.sh
 
 ### Remember to SHIP; SHIP; SHIP
