@@ -66,8 +66,8 @@ void stdoutJSONWriter (std::vector<Rect> faces, Mat image)
   int id, x, y, width, height;
   int img_width, img_height, numfaces;
 
-  img_width = image.rows;
-  img_height = image.cols;
+  img_width = image.cols;
+  img_height = image.rows;
   numfaces = faces.size();
 
   // JSON Header
