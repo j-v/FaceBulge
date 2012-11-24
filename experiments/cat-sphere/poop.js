@@ -3,7 +3,8 @@ var camera,
     scene,
     material,
     mesh,
-    texture;
+    texture,
+    geometry;
 
 function start() {
 			renderer.render(scene, camera);
@@ -84,7 +85,8 @@ function loadScene() {
 
 		//geometry = new THREE.PlaneGeometry(100, 100, 10, 10),
         geometry = makeFuckedGridGeometry();
-        mesh = new THREE.Mesh(geometry, material),
+        mesh = new THREE.Mesh(geometry, material);
+        mesh.geometry.dynamic = true;
         //mesh = makeGridMesh(10, 10, 10, material);
         pointLight = new THREE.PointLight(0xFFFFFF);
 
@@ -104,13 +106,9 @@ function animate(t) {
 	camera.position.y = 150;
 	camera.position.z = Math.abs(Math.cos(t/1000)*300);
 	// you need to update lookAt every frame
-  geometry = makeFuckedGridGeometry();
-  geometry.vertices[50].z = Math.random() * 100
-  if(mesh) scene.remove(mesh)
-  mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
+  geometry.vertices[50].z = Math.random() * 100;
+  mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
-	// renderer automatically clears unless autoClear = false
-	renderer.render(scene, camera);
+	renderer.render(scene, camera);	// renderer automatically clears unless autoClear = false
 	window.requestAnimationFrame(animate, renderer.domElement);
 };
