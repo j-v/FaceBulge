@@ -132,24 +132,18 @@ function loadScene() {
 }
 
 function animate(t) {
-	// TODO parameterize
-	// period, angle_diff
-	var rotation = 1;
-	var period = 4000;
+	var rotation = 0.2 * Math.PI; // value between 0 - PI, how much the camera rotates in radians
+	var period = 4000; // time in ms it takes for the camera to do a full trip (there and back)
 	
 	var img_height = face_info.height;
 	var img_width = face_info.width;
 	var multiplier = Math.max(img_height, img_width) * 2;    
 	// spin the camera in a circle
-	//camera.position.x = Math.abs(Math.sin(t/10000 + 1)*multiplier ) ;
-	camera.position.x = Math.abs((Math.sin(((t % period)-(period/2))/ (period/(2*rotation)) ))*multiplier) - Math.sin(rotation / 2)*multiplier ;
-	//camera.position.x = (Math.sin(((t % 1000)-500)/2000))*multiplier ;
-	//camera.position.y = Math.abs((Math.sin(((t % 1000)-500)/2000))*multiplier ) ;
-	camera.position.y = 150;
-	//camera.position.z = Math.abs(Math.cos(t/10000 + 2)*multiplier  );
-	//camera.position.z = Math.abs((Math.cos(((t%1000)-500)/2000 ))*multiplier) - Math.sin(1/8)*multiplier;
-	camera.position.z = Math.abs((Math.cos(((t % period)-(period/2))/ (period/(2*rotation)) ))*multiplier);// + Math.cos(rotation / 2)*multiplier ;
-	camera.position.z = Math.sqrt(multiplier*multiplier - camera.position.x * camera.position.x);
+	var scale_val = 2 * Math.abs((t % period)/(period) - 0.5);
+	camera.position.x = Math.sin(scale_val*rotation-rotation/2)*multiplier;
+	camera.position.y = 0;// 150;
+	//camera.position.z = Math.sqrt(multiplier*multiplier - camera.position.x * camera.position.x);
+	camera.position.z = Math.cos(scale_val*rotation-rotation/2)*multiplier;
 	// you need to update lookAt every frame
     //mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
