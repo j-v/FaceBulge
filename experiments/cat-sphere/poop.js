@@ -7,8 +7,8 @@ var camera,
     geometry;
 
 function start() {
-			renderer.render(scene, camera);
-			animate(new Date().getTime()); 
+	renderer.render(scene, camera);
+	animate(new Date().getTime()); 
 }
 
 function getVertex(x, y, planeGeom) {
@@ -32,16 +32,50 @@ function makeFuckedGridGeometry()
 	return geom;	
 }
 
+function euclid_distance(x1, y1, x2, y2)
+{
+	var x = x2 - x1;
+	var y = y2 - y1;
+	return Math.sqrt(x * x + y * y);
+}
+
 function makeBulgeGridGeometry(width, height, divWidth, 
 		divHeight, bulgeCX, bulgeCY, bulgeRadius)
 {
 	var geom = new THREE.PlaneGeometry(width, height, divWidth, divHeight);
 	// find square of points to consider
-	divCX = Math.round(bulgeCX * 1.0 / width) * divWidth;
-	divCY = Math.round(bulgeCX * 1.0 / width) * divWidth;
-	divX1 = Math.floor((bulgeCX-bulgeRadius *1.0) / width) * divWidth;
+	var divCX = Math.round(((bulgeCX * 1.0) / width) * divWidth);
+	var divCY = Math.round(((bulgeCY * 1.0) / height) * divHeight);
+	var divX1 = Math.floor(((bulgeCX-bulgeRadius *1.0) / width) * divWidth);
+	var divX2 = Math.ceil(((bulgeCX+bulgeRadius *1.0) / width) * divWidth);
+	var divY1 = Math.floor(((bulgeCY-bulgeRadius *1.0) / height) * divHeight);
+	var divY2 = Math.ceil(((bulgeCY+bulgeRadius *1.0) / height) * divHeight);
 
-	// UNFINISHED TODO
+	var divSizeX = width/(divWidth*1.0);
+	var divSizeY = height/(divHeight*1.0);
+	for (var i=divX1; i<=divX2; i++)
+	{
+		for (var j=divY1; j<=divY2; j++)
+		{
+			if (euclid_distance(i*divSizeX, j*divSizeY, bulgeCX, bulgeCY) > bulgeRadius)
+				continue;
+
+			var x = i * divSizeX;
+			var y = j * divSizeY;
+			var x_diff = x - bulgeCX;
+			var y_diff = y - bulgeCY;
+			var z = Math.sqrt(bulgeRadius*bulgeRadius-x_diff*x_diff-y_diff*y_diff);
+
+			var v = getVertex(i, j, geom);
+			v.z += z;
+
+						
+			
+		}
+	}
+
+	return geom;
+
 }
 
 // TODO didn't end up using this, so delete. but maybe find out what went wrong
@@ -108,11 +142,12 @@ function loadScene() {
 		//	rings),
 
 		//geometry = new THREE.PlaneGeometry(100, 100, 10, 10),
-        geometry = makeFuckedGridGeometry();
+		//geometry = makeFuckedGridGeometry(),
+		geometry = makeBulgeGridGeometry(200, 200, 20, 20, 100, 100, 50),
         mesh = new THREE.Mesh(geometry, material);
         mesh.geometry.dynamic = true;
         //mesh = makeGridMesh(10, 10, 10, material);
-        pointLight = new THREE.PointLight(0xFFFFFF);
+    var pointLight = new THREE.PointLight(0xFFFFFF);
 
 	mesh.position.x = 10;
 	mesh.position.y = 25;
@@ -133,7 +168,7 @@ function animate(t) {
 	camera.position.y = 150;
 	camera.position.z = Math.abs(Math.cos(t/1000 + 2)*300  );
 	// you need to update lookAt every frame
-  geometry.vertices[50].z = Math.random() * 100;
+  //geometry.vertices[50].z = Math.random() * 100;
   mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
 	renderer.render(scene, camera);	// renderer automatically clears unless autoClear = false
