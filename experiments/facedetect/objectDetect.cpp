@@ -9,7 +9,8 @@
  using namespace cv;
 
  /** Function Headers */
- void detectAndDisplay( Mat frame );
+ std::vector<Rect> detectAndDisplay( Mat frame );
+ void stdoutJSONWriter (std::vector<Rect> faces);
 
  /** Global variables */
  String face_cascade_name = "haarcascade_frontalface_alt.xml";
@@ -22,6 +23,7 @@
  {
    CvCapture* capture;
    Mat frame;
+   std::vector<Rect> faces;
 
    //-- 1. Load the cascades
    if( !face_cascade.load( face_cascade_name ) ){ printf("--(!)Error loading\n"); return -1; };
@@ -31,17 +33,19 @@
 
     //-- 3. Apply the classifier to the frame
     if( !frame.empty() )
-    { detectAndDisplay( frame ); }
+    { faces = detectAndDisplay( frame ); }
     else
     { printf(" --(!) No PICTURE found -- Break!"); return 1;}
 
-    waitKey(0);
 
+    stdoutJSONWriter(faces);
+
+    waitKey(0);
    return 0;
  }
 
 /** @function detectAndDisplay */
-void detectAndDisplay( Mat frame )
+std::vector<Rect> detectAndDisplay( Mat frame )
 {
   std::vector<Rect> faces;
   Mat frame_gray;
@@ -59,4 +63,35 @@ void detectAndDisplay( Mat frame )
   }
   //-- Show what you got
   imshow( window_name, frame );
+
+  return faces;
+}
+
+void stdoutJSONWriter (std::vector<Rect> faces)
+{
+  int id, x, y, width, height;
+
+  // JSON Header
+  cout << "{\n"
+    "\"faces\": [\n";
+
+  // JSON element for each face
+  for (int i = 0; i < faces.size(); ++i)
+  {
+    id = i;
+    x = faces[i].x;
+    y = faces[i].y;
+    width = faces[i].width;
+    height = faces[i].height;
+
+    cout << "{ \"id\":\"" << id << "\" , "
+    << "\"x\":\"" << x << "\" , "
+    << "\"y\":\"" << y << "\" , "
+    << "\"width\":\"" << width << "\" , "
+    << "\"height\":\"" << height << "\" }";
+    if (i+1 != faces.size()) { cout << ",";}
+  }
+
+  // JSON delimiter
+  cout << "]\n}";
 }
