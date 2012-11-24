@@ -156,7 +156,7 @@ function loadScene() {
 	mesh.position.x = 10;
 	mesh.position.y = 25;
 
-    camera.position.z = 300;    
+    camera.position.z = 200;    
     renderer.setSize(WIDTH, HEIGHT);
     scene.add(mesh);
     world.appendChild(renderer.domElement);

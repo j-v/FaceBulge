@@ -2,3 +2,5 @@
 *.sw[a-z]
 node_modules
 *.out*
+/public/uploads/
+*.exe
