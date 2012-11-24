@@ -6,6 +6,10 @@ function start() {
 	
 	renderer.render(scene, camera);
 	animate(new Date().getTime()); 
+  if($) {
+    $("p.processing").hide();
+    $("h1 a").text("You've just been FaceBulged!");
+  }
 }
 
 function getVertex(x, y, planeGeom) {
@@ -84,6 +88,7 @@ function loadScene() {
 	renderer = new THREE.WebGLRenderer();
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene = new THREE.Scene();
+
 	texture = THREE.ImageUtils.loadTexture(photo_path, {}, function() {
 			// need to wait until texture is loaded to display stuff
             start();

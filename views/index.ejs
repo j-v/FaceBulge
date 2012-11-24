@@ -3,16 +3,30 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+		<script type="text/javascript" src="three.min.js"></script>
+		<script type="text/javascript" src="facebulge.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		var face_info = {
+		"width":417 , "height":521 , "numfaces":1 , "faces": [{ "id":1 , "x":100 , "y":139 , "width":185 , "height":185 }]
+		};
+			var photo_path = '/uploads/da_queen.jpeg';
+			$(function() {
+				$("form").submit(function() {
+					$(this).slideUp()
+				})
+			})
+		</script>
   </head>
-  <body>
+  <body onload="loadScene()">
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p>Welcome to <%= title %>.<br /><strong>Do you want to be <%= title %>d?</strong></p>
 		
 		<form action="/" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-			<p><input type="file" name="file" id="file">
-		
-			<p><input type="submit" value="Continue &rarr;"></p>
+			<p><input type="file" name="file" id="file"> <input type="submit" value="Continue &rarr;"></p>
 		</form>
 		
+		<div id="world"></div>
+		<a href="https://github.com/j-v/FaceBulge">we <strong>bulge</strong> opensource, 'coz we're into that kind of stuff.</a>
   </body>
 </html>

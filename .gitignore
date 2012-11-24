@@ -2,5 +2,7 @@
 *.sw[a-z]
 node_modules
 *.out*
-/public/uploads/
+/public/uploads/*.*[pfg]
+!/public/uploads
+!/uploads/da_queen.jpeg
 *.exe
