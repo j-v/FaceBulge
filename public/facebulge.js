@@ -1,4 +1,6 @@
 var x_thin = 1.25;
+var bulge_factor = 0.8;
+var bulge_boost = 10;
 
 function start() {
 	
@@ -50,7 +52,7 @@ function makeBulgeGridGeometry(width, height, divWidth,
 			var v = getVertex(i, j, geom);
 			if (v != undefined)
 			{
-				v.z += z * 1.0 + 15 ;
+				v.z += z * bulge_factor + bulge_boost;
 			}
 
 		}
@@ -113,15 +115,18 @@ function loadScene() {
 }
 
 function animate(t) {
+	// TODO parameterize
+	// period, angle_diff
+	
 	var img_height = face_info.height;
 	var img_width = face_info.width;
 	var multiplier = Math.max(img_height, img_width) * 2;    
 	// spin the camera in a circle
 	//camera.position.x = Math.abs(Math.sin(t/10000 + 1)*multiplier ) ;
-	camera.position.x = Math.abs((Math.sin(((t % 1000)-500)/2000))*multiplier ) ;
+	camera.position.x = Math.abs((Math.sin(((t % 1000)-250)/1000))*multiplier ) ;
 	camera.position.y = 150;
 	//camera.position.z = Math.abs(Math.cos(t/10000 + 2)*multiplier  );
-	camera.position.z = Math.abs((Math.cos(((t%1000)-500)/2000 ))*multiplier);
+	camera.position.z = Math.abs((Math.cos(((t%1000)-500)/1000 ))*multiplier);
 	// you need to update lookAt every frame
     //mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
