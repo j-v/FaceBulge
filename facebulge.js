@@ -1,11 +1,3 @@
-var camera,
-    renderer,
-    scene,
-    material,
-    mesh,
-    texture,
-    geometry;
-
 function start() {
 	renderer.render(scene, camera);
 	animate(new Date().getTime()); 
@@ -16,27 +8,6 @@ function getVertex(x, y, planeGeom) {
 	
 	index = width * y + x;
 	return planeGeom.vertices[index];
-}
-
-function makeFuckedGridGeometry() // AKA Unikat geometry
-{
-	// make a point stick out of the mesh
-	var size = 200;
-	var divisions = 50;
-	var geom= new THREE.PlaneGeometry(size, size, divisions, divisions);
-	var v = getVertex(Math.round(1.23/2 * (divisions+1)), Math.round(.4*divisions), geom);
-	v.z += 0.4 * size;
-	v.y += 0.15 * size;
-	console.log(geom.vertices.length);
-	
-	return geom;	
-}
-
-function euclid_distance(x1, y1, x2, y2)
-{
-	var x = x2 - x1;
-	var y = y2 - y1;
-	return Math.sqrt(x * x + y * y);
 }
 
 function makeBulgeGridGeometry(width, height, divWidth, 
@@ -72,49 +43,9 @@ function makeBulgeGridGeometry(width, height, divWidth,
 		}
 	}
 
-
-	// add unikat
-	var v = getVertex(Math.round(1.23/2 * (divWidth+1)), Math.round(.4*divWidth), geom);
-	v.z += 0.4 * width;
-	v.y += 0.15 * width;
-
 	return geom;
-
 }
 
-// TODO didn't end up using this, so delete. but maybe find out what went wrong
-function makeGridMesh(interval, width, height, material) 
-{
-	var geom = new THREE.Geometry();
-	//vGrid = []; 
-	// make vertices
-	for (var i=0; i < width; i++) {
-		//vGrid[i] = [];
-		for (var j=0; j<height; j++) {
-			var vertex = new THREE.Vector3(i*interval, j*interval, 0);
-			//vGrid[i][j] = vertex;
-			geom.vertices.push(vertex);
-		}
-	}
-	// make faces
-	for (var i=0; i < width - 1; i++) {
-		for (var j=0; j < height - 1; j++) {
-			// add two faces for each square
-			// clockwise from top-left: A, B, C, D makes square
-			vA = i * width + j;
-			vB = vA + 1;
-			vC = (i+1) * width + 1 +j;
-			vD = (i+1) * width + j;
-			geom.faces.push(new THREE.Face3(vA, vB, vC));
-			geom.faces.push(new THREE.Face3(vA, vC, vD));
-		}
-	}
-	geom.computeFaceNormals();
-
-	mesh = new THREE.Mesh(geom, material);
-
-	return mesh;
-}
 
 function loadScene() {
     var world = document.getElementById('world'),
@@ -124,33 +55,35 @@ function loadScene() {
         ASPECT = WIDTH / HEIGHT,
         NEAR = 0.1,
         FAR = 10000;
-
+    
+	// TODO bulge grid parameters
+	var face = face_json.faces[0]; // only use 1st face for now
+	var img_height = face_json.height;
+	var img_width = face_json.width;
+	var grid_width = 50;
+	var grid_height = 50;
+	var face_radius = (face.width+face.height)/2;
+	var face_cX = face.x + face.width/2;
+	var face_cY = face.y + face.height/2;
+	
 	renderer = new THREE.WebGLRenderer();
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene = new THREE.Scene();
-	texture = THREE.ImageUtils.loadTexture('cat.gif', {}, function() {
-            //scene.add(camera);
+	texture = THREE.ImageUtils.loadTexture(img_src, {}, function() {
+			// need to wait until texture is loaded to display stuff
             start();
 		}),
 
-        //material = new THREE.MeshBasicMaterial({map: texture}),
-        material = new THREE.MeshPhongMaterial({map: texture}),
-        // material = new THREE.MeshPhongMaterial({color: 0xCC0000});
-        //geometry = new THREE.PlaneGeometry(100, 100),
-        //radius = 75,
-        //segments = 32,
-        //rings = 32,
-		//geometry = new THREE.SphereGeometry(
-		//	radius,
-		//	segments,
-		//	rings),
-
-		//geometry = new THREE.PlaneGeometry(100, 100, 10, 10),
-		//geometry = makeFuckedGridGeometry(),
-		geometry = makeBulgeGridGeometry(200, 200, 50, 50, 100, 100, 50),
+        material = new THREE.MeshBasicMaterial({map: texture}),
+		geometry = makeBulgeGridGeometry(img_width, 
+				img_height,
+				grid_width,
+				grid_height,
+				face_cX,
+				face_cY,
+				face_radius),
         mesh = new THREE.Mesh(geometry, material);
-        mesh.geometry.dynamic = true;
-        //mesh = makeGridMesh(10, 10, 10, material);
+	mesh.geometry.dynamic = true;
     var pointLight = new THREE.PointLight(0xFFFFFF);
 
 	mesh.position.x = 10;
@@ -172,8 +105,7 @@ function animate(t) {
 	camera.position.y = 150;
 	camera.position.z = Math.abs(Math.cos(t/1000 + 2)*300  );
 	// you need to update lookAt every frame
-  //geometry.vertices[50].z = Math.random() * 100;
-  mesh.geometry.verticesNeedUpdate = true;
+    //mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
 	renderer.render(scene, camera);	// renderer automatically clears unless autoClear = false
 	window.requestAnimationFrame(animate, renderer.domElement);
