@@ -6,22 +6,38 @@ function start() {
 			renderer.render(scene, camera);
 			animate(new Date().getTime()); 
 }
+
+function getVertex(x, y, planeGeom) {
+	width = planeGeom.widthSegments + 1;
+	
+	index = width * y + x;
+	return planeGeom.vertices[index];
+}
+
 function makeFuckedGridGeometry()
 {
 	// make a point stick out of the mesh
 	var size = 200;
 	var divisions = 50;
 	var geom= new THREE.PlaneGeometry(size, size, divisions, divisions);
-	//for (var i=0;i<divisions;i++) {
-	var head_pos = (divisions+1)*(Math.round(.4*divisions)) + Math.round(1.23/2 * (divisions+1));
-	console.log(head_pos);
-	var v = geom.vertices[head_pos];
+	var v = getVertex(Math.round(1.23/2 * (divisions+1)), Math.round(.4*divisions), geom);
 	v.z += 0.4 * size;
 	v.y += 0.15 * size;
-	//}
 	console.log(geom.vertices.length);
 	
 	return geom;	
+}
+
+function makeBulgeGridGeometry(width, height, divWidth, 
+		divHeight, bulgeCX, bulgeCY, bulgeRadius)
+{
+	var geom = new THREE.PlaneGeometry(width, height, divWidth, divHeight);
+	// find square of points to consider
+	divCX = Math.round(bulgeCX * 1.0 / width) * divWidth;
+	divCY = Math.round(bulgeCX * 1.0 / width) * divWidth;
+	divX1 = Math.floor((bulgeCX-bulgeRadius *1.0) / width) * divWidth;
+
+	// UNFINISHED TODO
 }
 
 // TODO didn't end up using this, so delete. but maybe find out what went wrong
