@@ -1,6 +1,10 @@
 var camera,
     renderer,
-    scene;
+    scene,
+    material,
+    mesh,
+    texture,
+    geometry;
 
 function start() {
 			renderer.render(scene, camera);
@@ -86,7 +90,7 @@ function loadScene() {
 	renderer = new THREE.WebGLRenderer();
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene = new THREE.Scene();
-	var texture = THREE.ImageUtils.loadTexture('cat.gif', {}, function() {
+	texture = THREE.ImageUtils.loadTexture('cat.gif', {}, function() {
             //scene.add(camera);
             start();
 		}),
@@ -105,7 +109,8 @@ function loadScene() {
 
 		//geometry = new THREE.PlaneGeometry(100, 100, 10, 10),
         geometry = makeFuckedGridGeometry();
-        mesh = new THREE.Mesh(geometry, material),
+        mesh = new THREE.Mesh(geometry, material);
+        mesh.geometry.dynamic = true;
         //mesh = makeGridMesh(10, 10, 10, material);
         pointLight = new THREE.PointLight(0xFFFFFF);
 
@@ -128,8 +133,9 @@ function animate(t) {
 	camera.position.y = 150;
 	camera.position.z = Math.abs(Math.cos(t/1000 + 2)*300  );
 	// you need to update lookAt every frame
+  geometry.vertices[50].z = Math.random() * 100;
+  mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
-	// renderer automatically clears unless autoClear = false
-	renderer.render(scene, camera);
+	renderer.render(scene, camera);	// renderer automatically clears unless autoClear = false
 	window.requestAnimationFrame(animate, renderer.domElement);
 };
