@@ -1,5 +1,7 @@
 # How big's your bulge?
 Take the **BULGE CHALLENGE**
+Example:
+![Ballmer bulge](https://dl.dropbox.com/u/345086/anim.gif)
 
 You can see the live project at [http://facebulge.herokuapp.com](http://facebulge.herokuapp.com)
 
