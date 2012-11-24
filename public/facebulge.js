@@ -56,7 +56,7 @@ function loadScene() {
         NEAR = 0.1,
         FAR = 10000;
     
-	// TODO bulge grid parameters
+	// bulge grid parameters
 	var face = face_json.faces[0]; // only use 1st face for now
 	var img_height = face_json.height;
 	var img_width = face_json.width;
@@ -89,7 +89,7 @@ function loadScene() {
 	mesh.position.x = 10;
 	mesh.position.y = 25;
 
-    camera.position.z = 300;    
+    camera.position.z = Math.max(img_height, img_width);    
     renderer.setSize(WIDTH, HEIGHT);
     scene.add(mesh);
     world.appendChild(renderer.domElement);
