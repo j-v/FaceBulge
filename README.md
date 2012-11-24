@@ -27,6 +27,7 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
     cd experiments/facedetect
     ./build.sh
     cd ../../
+		npm install
     ./run.sh
 
 ### Remember to SHIP; SHIP; SHIP
