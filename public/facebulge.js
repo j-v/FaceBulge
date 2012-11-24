@@ -77,6 +77,7 @@ function loadScene() {
 	renderer = new THREE.WebGLRenderer();
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene = new THREE.Scene();
+  if(!document.location.href.match(/localhost/)) photo_path = 'http://mustachify.me/?src=' + document.location.protocol + '//'+document.location.hostname + photo_path 
 	texture = THREE.ImageUtils.loadTexture(photo_path, {}, function() {
 			// need to wait until texture is loaded to display stuff
             start();
