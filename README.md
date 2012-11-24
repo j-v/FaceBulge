@@ -22,7 +22,7 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
 ![SHIP IT LIKE A PRO](http://i.imgur.com/SrAsR.jpg)
 
 ### Unikat is always in ship mode.
-[Living in a state of fear](http://i.imgur.com/tkxxt.png)
+![Living in a state of fear](http://i.imgur.com/tkxxt.png)
 
 ### This is NOT a facebulge...
 ![H-A-N-D Bulge!](http://www.unlikethis.com/handbulge.png)
