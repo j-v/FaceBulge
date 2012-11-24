@@ -45,7 +45,8 @@ function makeBulgeGridGeometry(width, height, divWidth,
 			var z = Math.sqrt(bulgeRadius*bulgeRadius-x_diff*x_diff-y_diff*y_diff);
 
 			var v = getVertex(i, j, geom);
-			v.z += z * 0.5 + 20;
+			if (v != undefined)
+				v.z += z * 0.5 + 20;
 
 		}
 	}
