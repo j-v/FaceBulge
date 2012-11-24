@@ -10,6 +10,13 @@ function getVertex(x, y, planeGeom) {
 	return planeGeom.vertices[index];
 }
 
+function euclid_distance(x1, y1, x2, y2)
+{
+	var x = x2 - x1;
+	var y = y2 - y1;
+	return Math.sqrt(x * x + y * y);
+}
+
 function makeBulgeGridGeometry(width, height, divWidth, 
 		divHeight, bulgeCX, bulgeCY, bulgeRadius)
 {
@@ -38,7 +45,8 @@ function makeBulgeGridGeometry(width, height, divWidth,
 			var z = Math.sqrt(bulgeRadius*bulgeRadius-x_diff*x_diff-y_diff*y_diff);
 
 			var v = getVertex(i, j, geom);
-			v.z += z;
+			if (v != undefined)
+				v.z += z * 0.5 + 20;
 
 		}
 	}
@@ -57,19 +65,19 @@ function loadScene() {
         FAR = 10000;
     
 	// bulge grid parameters
-	var face = face_json.faces[0]; // only use 1st face for now
-	var img_height = face_json.height;
-	var img_width = face_json.width;
+	var face = face_info.faces[0]; // only use 1st face for now
+	var img_height = face_info.height;
+	var img_width = face_info.width;
 	var grid_width = 50;
 	var grid_height = 50;
-	var face_radius = (face.width+face.height)/2;
+	var face_radius = 0.8 * (face.width+face.height)/2 ;
 	var face_cX = face.x + face.width/2;
 	var face_cY = face.y + face.height/2;
 	
 	renderer = new THREE.WebGLRenderer();
 	camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene = new THREE.Scene();
-	texture = THREE.ImageUtils.loadTexture(img_src, {}, function() {
+	texture = THREE.ImageUtils.loadTexture(photo_path, {}, function() {
 			// need to wait until texture is loaded to display stuff
             start();
 		}),
@@ -100,10 +108,15 @@ function loadScene() {
 }
 
 function animate(t) {
+	var img_height = face_info.height;
+	var img_width = face_info.width;
+	var multiplier = Math.max(img_height, img_width) * 2;    
 	// spin the camera in a circle
-	camera.position.x = Math.abs(Math.sin(t/1000 + 1)*300 ) ;
+	//camera.position.x = Math.abs(Math.sin(t/10000 + 1)*multiplier ) ;
+	camera.position.x = Math.abs((Math.sin(((t % 1000)-500)/4000))*multiplier ) ;
 	camera.position.y = 150;
-	camera.position.z = Math.abs(Math.cos(t/1000 + 2)*300  );
+	//camera.position.z = Math.abs(Math.cos(t/10000 + 2)*multiplier  );
+	camera.position.z = Math.abs((Math.cos(((t%1000)-500)/4000 ))*multiplier);
 	// you need to update lookAt every frame
     //mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);
