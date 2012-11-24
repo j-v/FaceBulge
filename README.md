@@ -1,8 +1,11 @@
 # How big's your bulge?
-### You can see the live project at [http://fb.joj.me](http://fb.joj.me)
+### You can try the live project at [http://fb.joj.me](http://fb.joj.me)
 Take the **BULGE CHALLENGE**
 Example:
-[![Ballmer bulge](https://dl.dropbox.com/u/345086/anim.gif)](http://fb.joj.me)
+
+![Ballmer bulge](https://dl.dropbox.com/u/345086/anim-ballmer.gif)
+
+[Another examle](https://dl.dropbox.com/u/345086/anim-obama.gif)
 
 
 ## How to contribute?
