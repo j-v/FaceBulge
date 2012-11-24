@@ -1,5 +1,5 @@
 #include "opencv2/objdetect/objdetect.hpp"
- #include "opencv2/highgui/highgui.hpp"
+#include "opencv2/highgui/highgui.hpp"
  #include "opencv2/imgproc/imgproc.hpp"
 
  #include <iostream>
@@ -15,13 +15,11 @@
  /** Global variables */
  String face_cascade_name = "haarcascade_frontalface_alt.xml";
  CascadeClassifier face_cascade;
- string window_name = "Capture - Face detection";
  RNG rng(12345);
 
  /** @function main */
  int main( int argc, const char** argv )
  {
-   CvCapture* capture;
    Mat frame;
    std::vector<Rect> faces;
 
@@ -40,7 +38,6 @@
 
     stdoutJSONWriter(faces);
 
-    waitKey(0);
    return 0;
  }
 
@@ -61,9 +58,6 @@ std::vector<Rect> detectAndDisplay( Mat frame )
     Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 );
     ellipse( frame, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
   }
-  //-- Show what you got
-  imshow( window_name, frame );
-
   return faces;
 }
 
