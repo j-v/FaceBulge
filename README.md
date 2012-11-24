@@ -22,7 +22,6 @@ You can see the live project at [http://facebulge.herokuapp.com](http://facebulg
 
     git clone git://github.com/j-v/FaceBulge.git
     cd FaceBulge
-    mkdir public/uploads/
     # you need to have opencv and build tools installed to compile the helper
     cd experiments/facedetect
     ./build.sh

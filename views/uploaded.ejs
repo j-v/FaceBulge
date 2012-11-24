@@ -13,7 +13,17 @@
   </head>
   <body onload="loadScene()">
     <h1><%= title %></h1>
-    <p>Processing your bulge...</p>
+		<p class="error">There was an error processing your bulge :(</p>
+    <p class="processing">Processing your bulge...</p>
+		<script type="text/javascript" charset="utf-8">
+		if(face_info) {
+			$("p.error").hide();
+			$("p.processing").show();
+			if(face_info.faces.length == 0) {
+				$("p.processing").text('sorry pal, we couldn\'t find any face bulge in your face. :(')
+			}
+		}
+		</script>
 	<div id="world"></div>
 				
   </body>

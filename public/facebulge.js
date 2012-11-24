@@ -1,6 +1,10 @@
 function start() {
 	renderer.render(scene, camera);
 	animate(new Date().getTime()); 
+  if($) {
+    $("p.processing").hide();
+    $("h1 a").text("You've just been FaceBulged!");
+  }
 }
 
 function getVertex(x, y, planeGeom) {
