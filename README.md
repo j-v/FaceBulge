@@ -5,7 +5,7 @@ Example:
 
 ![Ballmer bulge](https://dl.dropbox.com/u/345086/anim-ballmer.gif)
 
-[Another examle](https://dl.dropbox.com/u/345086/anim-obama.gif)
+Another examle of [Obama](https://dl.dropbox.com/u/345086/anim-obama.gif)!
 
 
 ## How to contribute?
