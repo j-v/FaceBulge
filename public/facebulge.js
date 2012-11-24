@@ -45,7 +45,7 @@ function makeBulgeGridGeometry(width, height, divWidth,
 			var z = Math.sqrt(bulgeRadius*bulgeRadius-x_diff*x_diff-y_diff*y_diff);
 
 			var v = getVertex(i, j, geom);
-			v.z += z * 0.5;
+			v.z += z * 0.5 + 20;
 
 		}
 	}
@@ -112,10 +112,10 @@ function animate(t) {
 	var multiplier = Math.max(img_height, img_width) * 2;    
 	// spin the camera in a circle
 	//camera.position.x = Math.abs(Math.sin(t/10000 + 1)*multiplier ) ;
-	camera.position.x = Math.abs(Math.sin(t/5000)*multiplier ) ;
+	camera.position.x = Math.abs((Math.sin(((t % 1000)-500)/4000))*multiplier ) ;
 	camera.position.y = 150;
 	//camera.position.z = Math.abs(Math.cos(t/10000 + 2)*multiplier  );
-	camera.position.z = Math.abs(Math.cos(t/5000 )*multiplier  );
+	camera.position.z = Math.abs((Math.cos(((t%1000)-500)/4000 ))*multiplier);
 	// you need to update lookAt every frame
     //mesh.geometry.verticesNeedUpdate = true;
 	camera.lookAt(scene.position);

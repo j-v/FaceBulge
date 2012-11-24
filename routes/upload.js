@@ -14,7 +14,11 @@ var path = require("path");
 exports.action = function(req, res) {
   //child = exec('cd '+ facedetect_path + ' && ./a.out ' + req.files.file.path,
   process.chdir(facedetect_path);
-  child = exec('objectDetect.exe ' + req.files.file.path,
+  if (process.platform == "win32") 
+	  command = 'objectDetect.exe';
+  else
+	  command = './objectDetect.exe';
+  child = exec(command + ' ' + req.files.file.path,
     function (error, stdout, stderr) {
       var photo_path = req.files.file.path.split(path.sep)
       res.render('uploaded', { title: 'FaceBulge', face_info: stdout, photo_path: '/uploads/' + photo_path[photo_path.length - 1] });
