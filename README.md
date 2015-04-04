@@ -1,5 +1,4 @@
 # How big's your bulge?
-### You can try the live project at [http://fb.joj.me](http://fb.joj.me)
 Take the **BULGE CHALLENGE**
 Example:
 
